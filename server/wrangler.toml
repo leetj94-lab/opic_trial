@@ -1,0 +1,13 @@
+name = "opic-trial-evaluator"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+ALLOWED_ORIGIN = "https://leetj94-lab.github.io"
+# Set OPENAI_MODEL to a text model available to your API project.
+# OPENAI_MODEL = "your-available-model-id"
+
+# Required secrets (never commit their values):
+# npx wrangler secret put OPENAI_API_KEY
+# npx wrangler secret put ACCESS_TOKEN
+# Use a long random ACCESS_TOKEN distinct from your OpenAI API key.

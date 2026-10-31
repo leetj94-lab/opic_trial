@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f5fa">
+<meta name="description" content="IM3를 향한 가벼운 OPIc 말하기 연습. 무작위 문제, 음성 질문, 녹음과 텍스트 복습.">
+<title>OPIc Trial — IM3 Speaking Lab</title>
+<link rel="stylesheet" href="./style.css"><script type="module" src="./js/app.js"></script>
+</head>
+<body>
+<header class="topbar"><a class="brand" href="./"><span class="brand-icon">o<span>•</span></span><span>opic<span class="brand-light"> / trial</span></span></a><span class="top-note">A LITTLE PRACTICE. MORE CONFIDENCE.</span><span class="target">YOUR NEXT STEP <b>IM3 ↗</b></span></header>
+<div class="layout">
+<aside><div class="side-label">SPEAKING WORKSPACE</div><nav aria-label="주요 메뉴"><button class="nav-item active" data-view="setup"><span>01</span> 연습 준비 <i>↗</i></button><button class="nav-item" data-view="practice"><span>02</span> 모의고사 <i>→</i></button><button class="nav-item" data-view="history"><span>03</span> 기록 & 피드백 <i>→</i></button></nav><div class="side-bottom"><span class="dot"></span> YOUR OWN PACE<p>완벽한 문장보다,<br>끝까지 전달하는 연습.</p><small>비공식 학습 도구<br>공식 OPIc과 무관합니다.</small></div></aside>
+<main id="main">
+<section id="setup-view">
+<div class="eyebrow">BUILD YOUR SPEAKING RHYTHM</div><h1>IM3를 향한 첫 연습,<br><span>가볍게 말해보세요.</span></h1><p class="lead">유형은 골고루, 질문은 매번 새롭게.<br>듣고, 말하고, 다시 들으며 나만의 답변을 만들어 보세요.</p>
+<div class="overview"><div><b id="bank-count">63</b><span>자체 제작 문항</span></div><div><b>8</b><span>핵심 연습 유형</span></div><div><b>2×</b><span>질문 청취 기회</span></div><span class="overview-note">실전의 부담을 줄인<br>짧은 유형 체험</span></div>
+<div class="section-head"><h2><span>01</span> 오늘의 연습</h2><span>기본 추천 · 약식 8문항</span></div>
+<div class="mode-grid" role="group" aria-label="연습 모드">
+<button class="mode-card" data-mode="quick" aria-pressed="false"><span class="card-number">04 <small>QUESTIONS</small></span><h3>워밍업</h3><p>묘사 · 경험 · 롤플레이<br>핵심 유형만 빠르게</p><span class="mode-footer">약 5–8분 <span>○</span></span></button>
+<button class="mode-card selected" data-mode="sampler" aria-pressed="true"><span class="recommended">RECOMMENDED</span><span class="card-number">08 <small>QUESTIONS</small></span><h3>유형 한 바퀴</h3><p>자기소개부터 문제 해결까지<br>8가지 유형을 한 번씩</p><span class="mode-footer">약 10–15분 <span>●</span></span></button>
+<button class="mode-card" data-mode="combo" aria-pressed="false"><span class="card-number">12 <small>QUESTIONS</small></span><h3>콤보 연습</h3><p>같은 주제의 연속 질문<br>연결된 롤플레이 세트</p><span class="mode-footer">약 18–25분 <span>○</span></span></button>
+</div>
+<div class="section-head"><h2><span>02</span> 익숙한 주제 고르기</h2><span>복수 선택 · 콤보는 2개 이상</span></div><div id="topics" class="topics"></div>
+<details class="settings"><summary>음성 & 연습 설정 <span>환경을 먼저 확인하세요 ↗</span></summary><div class="settings-grid"><label>영어 음성<select id="voice"><option value="">기본 영어 음성</option></select></label><label>질문 읽기 속도<select id="rate"><option value="0.85">천천히 · 0.85×</option><option value="0.95" selected>자연스럽게 · 0.95×</option><option value="1.05">빠르게 · 1.05×</option></select></label><label>권장 답변 길이<select id="target-time"><option value="60">60초</option><option value="90" selected>90초</option><option value="120">120초</option></select></label></div><label class="check"><input id="auto-repeat" type="checkbox" checked> 첫 재생에서 질문을 자동으로 2회 읽기 (끄면 1회 + 다시 듣기)</label><label class="check"><input id="stt" type="checkbox" checked> 실시간 영어 음성인식 사용 · 브라우저 제공자에게 음성이 전송될 수 있습니다.</label><label class="check"><input id="show-question" type="checkbox"> 질문 텍스트를 처음부터 보기</label><div class="button-row"><button class="btn secondary" id="test-voice">영어 음성 테스트</button><button class="btn secondary" id="test-mic">마이크 3초 테스트</button><span id="device-state" role="status"></span></div><p class="muted">HTTPS 환경에서 사용하세요. Chrome / Edge 데스크톱을 권장합니다. 모바일·브라우저에 따라 음성인식과 녹음의 동시 사용이 제한될 수 있습니다. 이어폰을 사용하면 질문 음성 유입을 줄일 수 있습니다.</p></details>
+<div class="start-row"><div><b>말할 준비가 됐나요?</b><p>문항별 시간은 연습용 가이드입니다. 자동으로 답변을 끊지 않습니다.</p></div><button id="start" class="btn primary">랜덤 모의고사 시작 <span>↗</span></button></div>
+<div class="notice"><b>실제 시험과의 차이</b><p>본 도구는 자체 제작한 약식 연습이며 공식 문제·음성이 아닙니다. 실제 OPIc은 12–15문항, 본 시험 40분이며 질문 청취 기회는 2회입니다. 이 앱의 시간·출제 구성·피드백은 공식 등급을 보장하지 않습니다. <a href="https://www.opic.or.kr/opics/servlet/controller.opic.site.about.AboutServlet?p_process=move-introduce-opic" target="_blank" rel="noopener noreferrer">공식 안내 ↗</a></p></div>
+</section>
+<section id="practice-view" hidden></section><section id="review-view" hidden></section><section id="history-view" hidden></section>
+<footer>OPIc Trial <span>Practice with purpose. Speak in your own words.</span></footer>
+</main></div><div id="toast" role="status" aria-live="polite"></div>
+<dialog id="prompt-dialog"><div class="section-head"><h2>ChatGPT 평가 요청문</h2><button id="close-prompt" class="icon-btn" aria-label="닫기">×</button></div><p>질문·답변·평가 기준이 포함되어 있습니다. 복사해서 ChatGPT에 붙여넣거나 파일로 첨부하세요. 새 대화에 자동 전송되지는 않습니다.</p><textarea id="prompt-text" rows="13" aria-label="평가 요청문"></textarea><div class="button-row"><button class="btn primary" id="copy-prompt">요청문 복사</button><button class="btn secondary" id="download-prompt">TXT 다운로드</button><a class="btn secondary" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">ChatGPT 열기 ↗</a></div></dialog>
+</body></html>

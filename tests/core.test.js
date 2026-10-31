@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {BANK,TOPICS,TYPES,makeExam,shuffle} from '../js/bank.js';
+import {newSession,evaluationPrompt,stats,sessionExport} from '../js/core.js';
+const ids=TOPICS.map(t=>t.id);
+test('question bank has unique IDs and valid eight-type coverage',()=>{assert.equal(BANK.length,63);assert.equal(new Set(BANK.map(q=>q.id)).size,BANK.length);assert.deepEqual(new Set(BANK.map(q=>q.type)),new Set(Object.keys(TYPES)));});
+test('100 randomized samplers cover every type once and preserve role-play situation',()=>{for(let i=0;i<100;i++){const q=makeExam('sampler',ids);assert.equal(q.length,8);assert.equal(new Set(q.map(x=>x.id)).size,8);assert.equal(new Set(q.map(x=>x.type)).size,8);assert.ok(q.slice(-3).every(x=>x.bundle===q[5].bundle));}});
+test('topic filters work for every mode and topic',()=>{for(const topic of ids){for(const mode of ['quick','sampler']){const q=makeExam(mode,[topic]);assert.ok(q.every(x=>x.topic===topic||x.topic==='general'));assert.equal(q.length,mode==='quick'?4:8);}}assert.throws(()=>makeExam('sampler',[]));});
+test('combo contains two coherent topic triplets, a coherent role-play and no duplicates',()=>{for(let i=0;i<100;i++){const q=makeExam('combo',ids);assert.equal(q.length,12);assert.equal(new Set(q.map(x=>x.id)).size,12);assert.equal(new Set(q.slice(1,4).map(x=>x.topic)).size,1);assert.equal(new Set(q.slice(4,7).map(x=>x.topic)).size,1);assert.notEqual(q[1].topic,q[4].topic);assert.equal(new Set(q.slice(7,10).map(x=>x.bundle)).size,1);}});
+test('randomization does not modify input and reaches different questions',()=>{const original=[1,2,3,4];shuffle(original);assert.deepEqual(original,[1,2,3,4]);const starts=new Set(Array.from({length:100},()=>makeExam('sampler',ids)[1].id));assert.ok(starts.size>1);});
+test('evaluation export contains answers, missing-evidence guardrails and no audio',()=>{const s=newSession(makeExam(), 'sampler');s.answers[0].text='I work as an engineer.';const p=evaluationPrompt(s);assert.ok(p.includes(s.questions[0].text));assert.ok(p.includes(s.answers[0].text));assert.ok(p.includes('pronunciation'));assert.ok(p.includes('insufficient evidence'));assert.ok(p.includes('not an official grade'));assert.equal(sessionExport(s).answers.length,8);});
+test('word metrics avoid fake WPM on very short / absent recording',()=>{assert.equal(stats('',0).wpm,null);assert.equal(stats('I enjoy music because it helps me relax.',60).words,8);assert.equal(stats('First I walk, then I rest because I feel tired.',60).connectors,3);});
